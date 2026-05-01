@@ -1,0 +1,70 @@
+/* funcionAdministrador.css */
+
+.users-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px
+}
+
+.user-card{
+background:white;
+border-radius:10px;
+border:.5px solid var(--border);
+padding:16px
+}
+
+.uca{
+width:40px;
+height:40px;
+border-radius:50%;
+background:linear-gradient(135deg,var(--b2),var(--g2));
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+margin-bottom:10px
+}
+
+.uc-status{
+font-size:10px;
+font-weight:600;
+padding:2px 8px;
+border-radius:10px
+}
+
+.uc-act{background:#e8f7ed}
+.uc-des{background:#fdecea}
+
+.modal-overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5)
+}
+
+.modal-overlay.open{
+display:flex
+}
+
+.modal{
+background:white;
+border-radius:14px;
+padding:28px;
+width:100%;
+max-width:480px
+}
+
+.btn-backup {
+margin-top:10px;
+padding:10px 14px;
+background:linear-gradient(135deg,var(--g1),var(--g2));
+color:white;
+border:none;
+border-radius:10px;
+}
+
+.system-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
