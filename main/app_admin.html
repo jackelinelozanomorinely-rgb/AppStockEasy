@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — StockEasy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css"/>
+</head>
+<body>
+  <div class="screen active" id="scr-admin">
+  <div class="app-layout">
+    <div class="sidebar">
+      <div class="sb-brand">
+        <div class="sb-brand-ico" style="background:linear-gradient(135deg,#0d1f3c,#1e3a70)">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93C9.33 17.79 7 14.5 7 11V7.18L12 5z" fill="white"/></svg>
+        </div>
+        <div class="sb-brand-name">Stock<span>Easy</span></div>
+      </div>
+      <div class="sb-nav">
+        <div class="sb-sec">Administración del sistema</div>
+        <div class="sb-item active" onclick="gap('ag-users',this)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Gestión de usuarios
+        </div>
+        <div class="sb-item" onclick="gap('ag-system',this)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+          Control del sistema
+        </div>
+      </div>
+      <div class="sb-user">
+        <div class="sb-user-row">
+          <div class="sb-av">A</div>
+          <div><div class="sb-uname">Administrador</div><div class="sb-ubiz">StockEasy System</div></div>
+        </div>
+        <div class="sb-btns"><button class="sb-btn" onclick="doLogout()">↩ Salir del sistema</button></div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="topbar">
+        <div class="topbar-title" id="adm-ttl">Gestión de Usuarios</div>
+        <div class="adm-badge">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          Panel Administrador
+        </div>
+      </div>
+
+      <!-- USUARIOS ADMIN -->
+      <div class="page active" id="ag-users">
+        <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat"><div class="stat-lbl">Total usuarios</div><div class="stat-val cbl" id="adm-total-users">1</div><div class="stat-hint hg">Emprendedores registrados</div></div>
+          <div class="stat"><div class="stat-lbl">Usuarios activos</div><div class="stat-val cgr" id="adm-active-users">1</div><div class="stat-hint hg">En el sistema</div></div>
+          <div class="stat"><div class="stat-lbl">Usuarios desactivados</div><div class="stat-val crd" id="adm-inactive-users">0</div><div class="stat-hint hr">Suspendidos</div></div>
+        </div>
+        <div class="users-grid" id="users-grid"></div>
+      </div>
+
+      <!-- USUARIO DETALLE ADMIN -->
+      <div class="page" id="ag-user-detail">
+        <div class="det-hdr">
+          <button class="det-back" onclick="gap('ag-users',null)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Volver a usuarios
+          </button>
+          <div class="det-name" id="adm-det-name">Usuario</div>
+        </div>
+        <div class="g2">
+          <div class="sc">
+            <div class="sc-title">Información del emprendedor</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <div class="prof-av-big" id="adm-det-av" style="width:48px;height:48px;font-size:16px">MC</div>
+              <div>
+                <div style="font-weight:700;font-size:15px" id="adm-det-nm">—</div>
+                <div style="font-size:11px;color:var(--muted)" id="adm-det-em">—</div>
+              </div>
+            </div>
+            <div style="display:grid;gap:8px;font-size:13px">
+              <div><span style="color:var(--muted)">Emprendimiento:</span> <b id="adm-det-bz">—</b></div>
+              <div><span style="color:var(--muted)">Teléfono:</span> <b id="adm-det-tel">—</b></div>
+              <div><span style="color:var(--muted)">Estado:</span> <span id="adm-det-status" class="uc-status uc-act">Activo</span></div>
+            </div>
+          </div>
+          <div class="sc">
+            <div class="sc-title">Actividad en el sistema</div>
+            <div style="display:grid;gap:8px;font-size:13px">
+              <div><span style="color:var(--muted)">Productos registrados:</span> <b id="adm-det-prods">0</b></div>
+              <div><span style="color:var(--muted)">Movimientos totales:</span> <b id="adm-det-movs">0</b></div>
+              <div><span style="color:var(--muted)">Rol:</span> <b>Emprendedor</b></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:8px">
+              <button id="adm-toggle-btn" class="btn-p" onclick="toggleUserStatus()" style="flex:1;margin-top:0">Desactivar usuario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="system-grid">
+
+  <div class="sc">
+    <!-- Seguridad del sistema -->
+    <div class="sc-title">Seguridad del sistema</div>
+    Estado: <b style="color:var(--g1)">Activo</b><br>
+    Versión: <b>StockEasy version 1.0</b><br>
+    Usuarios activos: <b id="sys-active">1</b><br>
+    Respaldo automático: <b style="color:var(--g1)">Habilitado</b><br><br>
+
+    <button onclick="respaldarDatos()" class="btn-backup">
+      Respaldar datos ahora
+    </button>
+  </div>
+
+  <div class="sc">
+    <!-- Registros del sistema -->
+    <div class="sc-title">Registros del sistema</div>
+    <div style="font-size:12px;color:#555;line-height:2.2">
+      Total usuarios: <b id="sys-total-users">1</b><br>
+      Productos registrados: <b id="sys-prods">0</b><br>
+      Entradas registradas: <b>—</b><br>
+      Salidas registradas: <b>—</b>
+    </div>
+  </div>
+
+</div>
+
+
+    <div id="toast"></div>
+
+    <!-- Conexión JS -->
+    <script src="../js/config/main.js"></script>
+    <script src="../js/administration/admin.js"></script>
+    <script src="../js/toast/toast.js"></script>
+</body>
+</html>
+        
