@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — StockEasy</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="screen active" id="scr-admin-login">
+  <div class="auth-bg" style="background:linear-gradient(145deg,#050d1a 0%,#0d1f3c 55%,#051a0a 100%)">
+    <div class="auth-split">
+      <div class="auth-left">
+        <div class="auth-hero-brand">
+          <div class="auth-hero-icon" style="background:linear-gradient(135deg,#0d1f3c,#1e3a70)">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93C9.33 17.79 7 14.5 7 11V7.18L12 5z" fill="white"/></svg>
+          </div>
+          <div class="auth-hero-name">Stock<span>Easy</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:10px 18px;margin-top:8px;text-align:center">
+          <span style="font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase">Acceso Restringido — Sistema</span>
+        </div>
+      </div>
+      <div class="auth-right" style="background:#0d1f3c">
+        <div class="auth-form-area">
+          <div class="auth-title" style="color:white">Panel Administrador</div>
+          <div class="auth-sub" style="color:rgba(255,255,255,.45)">Acceso exclusivo del sistema StockEasy</div>
+          <div class="fld"><label style="color:rgba(255,255,255,.5)">Correo administrador</label><input type="email" id="a-email" placeholder="admin@stockeasy.com" style="background:#1a2d4f;border-color:#2a3f6f;color:white"><div class="err-msg" id="ea-err">Credenciales incorrectas</div></div>
+          <div class="fld"><label style="color:rgba(255,255,255,.5)">Contraseña de sistema</label>
+            <div class="pwd-wrap">
+              <input type="password" id="a-pass" placeholder="Contraseña" style="background:#1a2d4f;border-color:#2a3f6f;color:white;padding-right:40px" onkeydown="if(event.key==='Enter')doAdminLogin()">
+              <button class="pwd-eye" type="button" onclick="togglePwd('a-pass',this)" style="color:rgba(255,255,255,.4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+          </div>
+          <button class="btn-p" style="background:linear-gradient(135deg,#0d1f3c,#1e3a70)" onclick="doAdminLogin()">Acceder al sistema</button>
+          <div class="ok-msg" id="a-ok">Verificando credenciales...</div>
+          <button class="lnk" onclick="window.location.href='login.html'" style="color:rgba(255,255,255,.35)">Volver al inicio</button>
+        </div>
+        <div class="auth-bottom" style="border-top-color:rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center">admin@stockeasy.com / admin123</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- SCRIPTS: Importante el orden -->
+    <!-- 1. El archivo principal con los datos de usuarios -->
+    <script src="../js/config/main.js"></script>
+    <!-- 2. La lógica específica de esta página -->
+    <script src="../js/administration/admin_login.js"></script>
+    <!-- 3. Funciones administrativas necesarias para el panel -->
+    <script src="../js/administration/admin.js"></script>
+</body>
+</html>

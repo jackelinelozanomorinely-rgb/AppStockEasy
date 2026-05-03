@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil — StockEasy</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="screen active" id="scr-app">
+      <div class="app-layout">
+        <div class="sidebar">
+          <div class="sb-brand">
+            <div class="sb-brand-ico"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v10l9 5 9-5V7L12 2zm0 2.4L18.5 8 12 11.6 5.5 8 12 4.4zM4.5 9.3L11 12.8v6.9l-6.5-3.6V9.3zm8 10.4v-6.9l6.5-3.5v6.9L12.5 19.7z"/></svg></div>
+            <div class="sb-brand-name">Stock<span>Easy</span></div>
+          </div>
+          <div class="sb-nav">
+            <div class="sb-sec">Principal</div>
+            <div class="sb-item" onclick="window.location.href='dashboard.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dashboard
+            </div>
+            <div class="sb-sec">Gestión</div>
+            <div class="sb-item" onclick="window.location.href='products.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.58 15.91.48 13.33.54 11.36.07 9.5 1.99 9.5 4.5H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5-2c.83 0 1.5.67 1.5 1.5S15.83 7 15 7s-1.5-.67-1.5-1.5S14.17 4 15 4zm2 16H8V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v11z"/></svg>Productos
+            </div>
+            <div class="sb-item" onclick="window.location.href='inventory.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Inventario
+            </div>
+            <div class="sb-item active" onclick="window.location.href='profile.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Mi perfil
+            </div>
+          </div>
+          <div class="sb-user">
+            <div class="sb-user-row">
+              <div class="sb-av" id="sb-av">MC</div>
+              <div><div class="sb-uname" id="sb-nm">María Cardona</div><div class="sb-ubiz" id="sb-bz">Tienda La Esperanza</div></div>
+            </div>
+            <div class="sb-btns">
+              <button class="sb-btn" onclick="doLogout()">↩ Salir</button>
+            </div>
+          </div>
+        </div>
+        <div class="main">
+          <div class="page active" id="pg-profile">
+        <div class="prof-grid">
+          <div class="sc">
+            <div class="sc-title">Información de la cuenta</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <div class="prof-av-big" id="pav">MC</div>
+              <div>
+                <div style="font-weight:700;font-size:15px" id="p-nm">María Cardona</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px" id="p-em">m.cardona@email.com</div>
+                <div style="font-size:11px;color:var(--b2);margin-top:2px" id="p-bz">Tienda La Esperanza</div>
+              </div>
+            </div>
+            <div style="font-size:12px;color:#666;margin-bottom:6px;display:flex;gap:6px;align-items:center">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="color:var(--muted)"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              <b>Teléfono:</b> <span id="p-tel">3001234567</span>
+            </div>
+            <div style="font-size:11px;background:#f0f4ff;padding:9px 12px;border-radius:7px;color:var(--b1);display:flex;align-items:center;gap:6px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Rol: <b>Emprendedor</b>
+            </div>
+          </div>
+          <div class="sc">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <div class="sc-title" style="margin-bottom:0">Editar perfil</div>
+              <button class="act-btn btn-edit" id="prof-toggle" onclick="toggleEdit()" title="Editar perfil" style="width:auto;padding:0 10px;gap:5px;font-size:11px;font-weight:600">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                Editar
+              </button>
+            </div>
+            <div class="fl"><label>Correo electrónico</label><input type="email" id="edit-email" value="m.cardona@email.com" disabled></div>
+            <div class="fl"><label>Nombre del emprendimiento</label><input type="text" id="edit-biz" value="Tienda La Esperanza" disabled></div>
+            <div class="fl"><label>Teléfono</label><input type="text" id="edit-tel" value="3001234567" disabled></div>
+            <button class="btn-p" id="save-prof-btn" style="display:none;margin-top:10px" onclick="saveProfile()">Guardar cambios</button>
+          </div>
+          <div class="sc" id="pwd-section" style="grid-column:1/-1;max-width:460px">
+            <div class="sc-title">Cambiar contraseña</div>
+            <div class="fl"><label>Contraseña actual</label>
+              <div class="pwd-wrap"><input type="password" id="pwd-cur" placeholder="Tu contraseña actual"><button class="pwd-eye" type="button" onclick="togglePwd('pwd-cur',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+            </div>
+            <div class="fl"><label>Nueva contraseña</label>
+              <div class="pwd-wrap"><input type="password" id="pwd-new" placeholder="Mínimo 6 caracteres"><button class="pwd-eye" type="button" onclick="togglePwd('pwd-new',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+            </div>
+            <div class="fl"><label>Confirmar nueva contraseña</label>
+              <div class="pwd-wrap"><input type="password" id="pwd-new2" placeholder="Repite la nueva contraseña"><button class="pwd-eye" type="button" onclick="togglePwd('pwd-new2',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+            </div>
+            <div class="err-msg" id="pwd-err" style="margin-bottom:8px"></div>
+            <button class="btn-p" style="margin-top:8px" onclick="cambiarContrasena()">Actualizar contraseña</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="toast"></div>
+
+    <!-- SCRIPTS: Importante el orden -->
+    <!-- 1. El archivo principal con los datos de usuarios -->
+    <script src="../js/config/main.js"></script>
+    <!-- 2. La lógica específica de esta página -->
+    <script src="../js/administration/user_entrepreneur.js"></script>
+    <script src="../js/toast/toast.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

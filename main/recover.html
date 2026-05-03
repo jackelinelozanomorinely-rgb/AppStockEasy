@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña — StockEasy</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="screen active" id="scr-recover">
+  <div class="auth-bg">
+    <div class="auth-split">
+      <div class="auth-left">
+        <div class="auth-hero-brand">
+          <div class="auth-hero-icon"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v10l9 5 9-5V7L12 2zm0 2.4L18.5 8 12 11.6 5.5 8 12 4.4zM4.5 9.3L11 12.8v6.9l-6.5-3.6V9.3zm8 10.4v-6.9l6.5-3.5v6.9L12.5 19.7z"/></svg></div>
+          <div class="auth-hero-name">Stock<span>Easy</span></div>
+        </div>
+        <div class="auth-tagline">Recupera el acceso a tu cuenta de forma segura</div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-form-area">
+          <div class="auth-title">Recuperar contraseña</div>
+          <div class="auth-sub">Ingresa tu correo registrado y te enviaremos un enlace de recuperación</div>
+          <div class="fld"><label>Correo electrónico</label><input type="email" id="rec-email" placeholder="Ingresa tu correo registrado"><div class="err-msg" id="erec">Correo no encontrado en el sistema</div></div>
+          <button class="btn-p" onclick="doRecover()">Enviar enlace de recuperación</button>
+          <div class="ok-msg" id="rec-ok">Enlace enviado correctamente. Revisa tu bandeja de entrada.</div>
+          <button class="lnk" onclick="window.location.href='login.html'">Volver al inicio de sesión</button>
+        </div>
+        <div class="auth-bottom"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- SCRIPTS: Importante el orden -->
+    <!-- 1. El archivo principal con los datos de usuarios -->
+    <script src="../js/config/main.js"></script>
+    <!-- 2. La lógica específica de esta página -->
+    <script src="../js/authentication/recover.js"></script>
+</body>
+</html>

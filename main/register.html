@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro — StockEasy</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/login.css"/>
+</head>
+<body>
+  <div class="screen active" id="scr-register">
+  <div class="auth-bg">
+    <div class="auth-split">
+      <div class="auth-left">
+        <div class="auth-hero-brand">
+          <div class="auth-hero-icon"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v10l9 5 9-5V7L12 2zm0 2.4L18.5 8 12 11.6 5.5 8 12 4.4zM4.5 9.3L11 12.8v6.9l-6.5-3.6V9.3zm8 10.4v-6.9l6.5-3.5v6.9L12.5 19.7z"/></svg></div>
+          <div class="auth-hero-name">Stock<span>Easy</span></div>
+        </div>
+        <div class="auth-tagline">Únete como emprendedor y lleva el control de tu negocio desde hoy</div>
+        <div class="auth-feat"><div class="auth-feat-dot"></div>Registro gratuito como emprendedor</div>
+        <div class="auth-feat"><div class="auth-feat-dot"></div>Acceso inmediato a todas las funciones</div>
+        <div class="auth-feat"><div class="auth-feat-dot"></div>Sin costos ocultos ni suscripciones</div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-form-area">
+          <div class="auth-title">Crear cuenta</div>
+          <div class="auth-sub">Registro de emprendedor — todos los campos con * son obligatorios</div>
+          <div class="fld"><label>Nombre completo *</label><input type="text" id="r-name" placeholder="Ej: María García"><div class="err-msg" id="er-name">Campo obligatorio</div></div>
+          <div class="fld"><label>Correo electrónico *</label><input type="email" id="r-email" placeholder="correo@ejemplo.com"><div class="err-msg" id="er-email">Correo no válido o ya registrado</div></div>
+          <div class="fld"><label>Contraseña *</label>
+            <div class="pwd-wrap">
+              <input type="password" id="r-pass" placeholder="Mínimo 6 caracteres">
+              <button class="pwd-eye" type="button" onclick="togglePwd('r-pass',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+            <div class="err-msg" id="er-pass">Mínimo 6 caracteres</div></div>
+          <div class="fld"><label>Confirmar contraseña *</label>
+            <div class="pwd-wrap">
+              <input type="password" id="r-pass2" placeholder="Repite la contraseña">
+              <button class="pwd-eye" type="button" onclick="togglePwd('r-pass2',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+            <div class="err-msg" id="er-pass2">Las contraseñas no coinciden</div></div>
+          <div class="fld"><label>Nombre del emprendimiento *</label><input type="text" id="r-biz" placeholder="Ej: Tienda La Esperanza"><div class="err-msg" id="er-biz">Campo obligatorio</div></div>
+          <div class="fld"><label>Teléfono</label><input type="text" id="r-tel" placeholder="Ej: 3001234567"></div>
+          <button class="btn-p" onclick="doRegister()">Registrarme como emprendedor</button>
+          <div class="ok-msg" id="r-ok">¡Usuario registrado exitosamente! Redirigiendo...</div>
+          <button class="lnk" onclick="window.location.href='login.html'">¿Ya tienes cuenta? Inicia sesión</button>
+        </div>
+        <div class="auth-bottom"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config/main.js"></script>
+<script src="../js/authentication/register.js"></script>
+<script src="../js/authentication/login.js"></script>
+
+</body>
+</html>

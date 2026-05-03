@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario — StockEasy</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="screen active" id="scr-app">
+      <div class="app-layout">
+        <div class="sidebar">
+          <div class="sb-brand">
+            <div class="sb-brand-ico"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v10l9 5 9-5V7L12 2zm0 2.4L18.5 8 12 11.6 5.5 8 12 4.4zM4.5 9.3L11 12.8v6.9l-6.5-3.6V9.3zm8 10.4v-6.9l6.5-3.5v6.9L12.5 19.7z"/></svg></div>
+            <div class="sb-brand-name">Stock<span>Easy</span></div>
+          </div>
+          <div class="sb-nav">
+            <div class="sb-sec">Principal</div>
+            <div class="sb-item" onclick="window.location.href='dashboard.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dashboard
+            </div>
+            <div class="sb-sec">Gestión</div>
+            <div class="sb-item" onclick="window.location.href='products.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.58 15.91.48 13.33.54 11.36.07 9.5 1.99 9.5 4.5H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5-2c.83 0 1.5.67 1.5 1.5S15.83 7 15 7s-1.5-.67-1.5-1.5S14.17 4 15 4zm2 16H8V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v11z"/></svg>Productos
+            </div>
+            <div class="sb-item active" onclick="window.location.href='inventory.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Inventario
+            </div>
+            <div class="sb-item" onclick="window.location.href='alerts.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>Alertas
+              <span class="sb-badge" id="alert-badge">2</span>
+            </div>
+            <div class="sb-sec">Cuenta</div>
+            <div class="sb-item" onclick="window.location.href='profile.html'">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Mi perfil
+            </div>
+          </div>
+          <div class="sb-user">
+            <div class="sb-user-row">
+              <div class="sb-av" id="sb-av">MC</div>
+              <div><div class="sb-uname" id="sb-nm">María Cardona</div><div class="sb-ubiz" id="sb-bz">Tienda La Esperanza</div></div>
+            </div>
+            <div class="sb-btns">
+              <button class="sb-btn" onclick="doLogout()">↩ Salir</button>
+            </div>
+          </div>
+        </div>
+        <div class="main">
+          <div class="page active" id="pg-inventory">
+        <div class="tabs">
+          <button class="tab active" onclick="invTab('entrada',this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L11 14.17V7h2v7.17l2.59-2.58L17 13l-5 5z"/></svg>
+            Registrar Entrada
+          </button>
+          <button class="tab" onclick="invTab('salida',this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3l5 5-1.41 1.41L13 9.83V17h-2V9.83l-2.59 2.58L7 11l5-5z"/></svg>
+            Registrar Salida
+          </button>
+          <button class="tab" onclick="invTab('historial',this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+            Historial
+          </button>
+        </div>
+
+        <div id="iv-entrada">
+          <div class="sc">
+            <div class="sc-title">Registrar Entrada de Stock</div>
+            <div class="fg2">
+              <div class="fl" style="grid-column:1/-1">
+                <label>Buscar y seleccionar producto *</label>
+                <div style="position:relative">
+                  <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#aaa"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+                  <input type="text" id="inv-in-prod" placeholder="Escribe el nombre del producto..." style="padding-left:34px" oninput="showProdSug(this.value,'sug-in')" autocomplete="off">
+                </div>
+                <div id="sug-in" style="display:none;position:absolute;background:white;border:1px solid var(--border);border-radius:8px;z-index:50;max-width:400px;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div>
+              </div>
+              <div class="fl">
+                <label>Cantidad *</label>
+                <div class="qty-wrap">
+                  <button class="qty-btn" type="button" onclick="changeQty('inv-in-qty',-1)">−</button>
+                  <input type="number" class="qty-input" id="inv-in-qty" value="1" min="1">
+                  <button class="qty-btn" type="button" onclick="changeQty('inv-in-qty',1)">+</button>
+                </div>
+              </div>
+              <div class="fl">
+                <label>Fecha de entrada *</label>
+                <input type="date" id="inv-in-date">
+              </div>
+              <div class="fl" style="grid-column:1/-1">
+                <label>Nota (opcional)</label>
+                <input type="text" id="inv-in-nota" placeholder="Ej: Compra proveedor XYZ">
+              </div>
+            </div>
+            <button class="btn-grn" onclick="registrarEntrada()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L11 14.17V7h2v7.17l2.59-2.58L17 13l-5 5z"/></svg>
+              Registrar entrada
+            </button>
+          </div>
+        </div>
+
+        <div id="iv-salida" style="display:none">
+          <div class="sc">
+            <div class="sc-title">Registrar Salida de Stock</div>
+            <div class="fg2">
+              <div class="fl" style="grid-column:1/-1">
+                <label>Buscar y seleccionar producto *</label>
+                <div style="position:relative">
+                  <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#aaa"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+                  <input type="text" id="inv-out-prod" placeholder="Escribe el nombre del producto..." style="padding-left:34px" oninput="showProdSug(this.value,'sug-out')" autocomplete="off">
+                </div>
+                <div id="sug-out" style="display:none;position:absolute;background:white;border:1px solid var(--border);border-radius:8px;z-index:50;max-width:400px;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div>
+              </div>
+              <div class="fl">
+                <label>Cantidad *</label>
+                <div class="qty-wrap">
+                  <button class="qty-btn" type="button" onclick="changeQty('inv-out-qty',-1)">−</button>
+                  <input type="number" class="qty-input" id="inv-out-qty" value="1" min="1">
+                  <button class="qty-btn" type="button" onclick="changeQty('inv-out-qty',1)">+</button>
+                </div>
+              </div>
+              <div class="fl">
+                <label>Fecha de salida *</label>
+                <input type="date" id="inv-out-date">
+              </div>
+              <div class="fl" style="grid-column:1/-1">
+                <label>Motivo (opcional)</label>
+                <input type="text" id="inv-out-nota" placeholder="Ej: Venta a cliente, devolución">
+              </div>
+            </div>
+            <button class="btn-red-inv" onclick="registrarSalida()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3l5 5-1.41 1.41L13 9.83V17h-2V9.83l-2.59 2.58L7 11l5-5z"/></svg>
+              Registrar salida
+            </button>
+          </div>
+        </div>
+
+        <div id="iv-historial" style="display:none">
+          <div class="card"><div class="tbl-wrap"><table>
+            <thead><tr><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Fecha</th><th>Nota</th></tr></thead>
+            <tbody id="hist-tbody">
+              <tr><td>Camiseta Roja</td><td><span class="badge b-grn">Entrada</span></td><td class="mov-in">+10</td><td>2026-04-12</td><td>Compra proveedor</td></tr>
+              <tr><td>Zapatos Deportivos</td><td><span class="badge b-red">Salida</span></td><td class="mov-out">−2</td><td>2026-04-11</td><td>Venta</td></tr>
+              <tr><td>Bolígrafo Azul</td><td><span class="badge b-grn">Entrada</span></td><td class="mov-in">+20</td><td>2026-04-10</td><td>—</td></tr>
+              <tr><td>Taza Blanca</td><td><span class="badge b-red">Salida</span></td><td class="mov-out">−5</td><td>2026-04-09</td><td>Venta</td></tr>
+            </tbody>
+          </table></div></div>
+        </div>
+      </div>
+
+      <div id="toast"></div>
+
+    <!-- SCRIPTS -->
+    <script src="../js/config/main.js"></script>
+    <script src="../js/inventory/products.js"></script>
+    <script src="../js/inventory/alerts.js"></script>
+    <script src="../js/dashboard/dashboard.js"></script>
+    <script src="../js/inventory/inventory.js"></script>
+    <script src="../js/toast/toast.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
