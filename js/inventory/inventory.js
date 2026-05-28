@@ -148,3 +148,8 @@ function addHistRow(prod,tipo,qty,date,time,nota,user){
 updateCurrentTime();
 
 setInterval(updateCurrentTime, 1000);
+window.addEventListener('DOMContentLoaded', function(){
+
+  renderProds();
+
+});

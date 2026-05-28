@@ -321,11 +321,10 @@ function respaldarDatos(){
 
 function doLogout(){
 
-  const salir = confirm("¿Cerrar sesión?");
+  localStorage.removeItem('stockeasy_admin');
 
-  if(salir){
-    window.location.href = "../index.html";
-  }
+  window.location.href = "index.html";
+
 }
 
 // ==========================

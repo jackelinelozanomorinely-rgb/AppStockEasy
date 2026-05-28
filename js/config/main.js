@@ -129,7 +129,7 @@ function doLogout(){
   PRODUCTS = {};
   saveSession(null);
   if(window.location.pathname.split('/').pop() === 'app_admin.html'){
-    window.location.href = 'login.html';
+    window.location.href = 'login.html  ';
   } else {
     window.location.href = 'login.html';
   }

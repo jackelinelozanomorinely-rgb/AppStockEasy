@@ -17,10 +17,10 @@ var MONTH_NAMES = ['Ene','Feb','Mar','Abr','May','Jun',
 document.addEventListener('DOMContentLoaded', function () {
 
     // Si la sesión no está activa, redirigir
-    if (!CU) {
-        window.location.href = 'login.html';
-        return;
-    }
+  if (!CU) {
+    window.location.href = '../index.html';
+    return;
+}
 
     // Refrescar productos desde localStorage por si venimos
     // de otra página que guardó cambios

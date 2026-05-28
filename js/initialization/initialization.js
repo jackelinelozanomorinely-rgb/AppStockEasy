@@ -8,3 +8,17 @@ if(CU){
   loadUser();
   show('scr-app');
 }
+document.addEventListener('DOMContentLoaded', function(){
+
+   loadProducts();
+
+   renderProds();
+
+});
+document.addEventListener('DOMContentLoaded', function(){
+
+   initStorage();
+
+   renderProds();
+
+});

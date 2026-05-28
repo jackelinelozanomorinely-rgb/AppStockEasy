@@ -1,73 +1,236 @@
 function renderAlerts(){
-  var container=document.getElementById('alerts-list'); if(!container) return;
-  var alerts=[];
+
+  var container = document.getElementById('alerts-list');
+
+  if(!container) return;
+
+  var alerts = [];
+
   Object.keys(PRODUCTS).forEach(function(name){
-    var p=PRODUCTS[name];
+
+    var p = PRODUCTS[name];
+
+    // PRODUCTO AGOTADO
     if(p.qty === 0){
 
-  alerts.push({
-    name:name,
-    qty:p.qty,
-    min:p.min,
-    type:'agotado'
+      alerts.push({
+        name:name,
+        qty:p.qty,
+        min:p.min,
+        type:'agotado'
+      });
+
+    }
+
+    // STOCK BAJO
+    else if(p.qty <= p.min){
+
+      alerts.push({
+        name:name,
+        qty:p.qty,
+        min:p.min,
+        type:'bajo'
+      });
+
+    }
+
+    // STOCK ALTO
+    else if(p.qty > p.min * 5){
+
+      alerts.push({
+        name:name,
+        qty:p.qty,
+        min:p.min,
+        type:'alto'
+      });
+
+    }
+
   });
 
-}
-else if(p.qty <= p.min){
+  // BADGE
+  var badgeEl = document.getElementById('alert-badge');
 
-  alerts.push({
-    name:name,
-    qty:p.qty,
-    min:p.min,
-    type:'bajo'
-  });
+  var lowCount = alerts.filter(function(a){
 
-}
-else if(p.qty > p.min * 5){
+    return a.type === 'bajo' || a.type === 'agotado';
 
-  alerts.push({
-    name:name,
-    qty:p.qty,
-    min:p.min,
-    type:'alto'
-  });
+  }).length;
 
-}
-    else if(p.qty>p.min*5) alerts.push({name:name,qty:p.qty,min:p.min,type:'alto'});
-  });
-  var badgeEl=document.getElementById('alert-badge');
-  var lowCount=alerts.filter(function(a){ return a.type==='bajo'; }).length;
-  if(badgeEl){ badgeEl.textContent=lowCount||''; badgeEl.style.display=lowCount?'':'none'; }
-  if(!alerts.length){
-    container.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px;background:white;border-radius:10px;border:.5px solid var(--border)">Sin alertas activas. Todo el inventario esta en orden.</div>';
-    return;
+ if(badgeEl){
+
+  // ocultar badge si no hay alertas
+  if(lowCount <= 0){
+
+    badgeEl.style.display = 'none';
+
+  }else{
+
+    badgeEl.style.display = 'inline-flex';
+
+    badgeEl.textContent = lowCount;
+
   }
-  container.innerHTML=alerts.map(function(a){
-    var isLow = a.type === 'bajo';
-    var isOut = a.type === 'agotado';
-    return '<div class="alert-card" onclick="goToProduct(\''+a.name+'\')" style="cursor:pointer">' +
-'<div class="alert-ico ' +(isOut ? 'ico-red' : isLow ? 'ico-amb' : 'ico-amb') +'">' +'<svg viewBox="0 0 24 24" fill="currentColor">' +
-'<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>' +'</svg></div>' +'<div style="flex:1">' +'<div style="font-size:13px;font-weight:600">' +a.name +' — ' +(isOut ? 'Producto agotado' : isLow ? 'Stock bajo' : 'Stock alto') +'</div>' +'<div style="font-size:11px;color:var(--muted);margin-top:2px">' +a.qty +' unidades. ' +(isOut ? 'Debes reabastecer inmediatamente' : isLow ? 'Límite mínimo: ' + a.min + ' unidades' : 'Considera reducir compras') +
-'</div></div>' +'<span class="badge ' +(isOut ? 'b-red' : isLow ? 'b-amb' : 'b-blu') +'">' +(isOut ? 'Agotado' : isLow ? 'Urgente': 'Revisar') +'</span></div>';
-      +'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>'
-      +'<div style="flex:1"><div style="font-size:13px;font-weight:600">'+a.name+' &mdash; Stock '+(isLow?'bajo':'alto')+'</div>'
-      +'<div style="font-size:11px;color:var(--muted);margin-top:2px">'+a.qty+' unidades. '+(isLow?'Limite minimo: '+a.min+' unidades':'Considera reducir compras')+'</div></div>'
-      +'<span class="badge '+(isLow?'b-red':'b-amb')+'">'+(isLow?'Urgente':'Revisar')+'</span></div>';
-  }).join('');
+
 }
 
-function guardarLimite(){
-  var prod=document.getElementById('alert-prod-sel').value, min=parseInt(document.getElementById('alert-min-val').value)||0;
-  if(!prod){ toast('Selecciona un producto','error'); return; }
-  if(min<=0){ toast('El limite minimo debe ser mayor a 0','error'); return; }
-  PRODUCTS[prod].min=min; saveProducts(); renderAlerts(); renderProds();
-  setVal('alert-min-val','');
-  toast('Limite configurado para '+prod+': '+min+' unidades','success');
+  // SI NO HAY ALERTAS
+  if(!alerts.length){
+
+    container.innerHTML = `
+    
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:var(--muted);
+        font-size:13px;
+        background:white;
+        border-radius:10px;
+        border:.5px solid var(--border)
+      ">
+
+        Sin alertas activas. Todo el inventario está en orden.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  // MOSTRAR ALERTAS
+  container.innerHTML = alerts.map(function(a){
+
+    var isLow = a.type === 'bajo';
+
+    var isOut = a.type === 'agotado';
+
+    return `
+
+      <div class="alert-card"
+           onclick="goToProduct('${a.name}')"
+           style="cursor:pointer">
+
+        <div class="alert-ico ${isOut ? 'ico-red' : isLow ? 'ico-amb' : 'ico-blu'}">
+
+          <svg viewBox="0 0 24 24" fill="currentColor">
+
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+
+          </svg>
+
+        </div>
+
+        <div style="flex:1">
+
+          <div style="font-size:13px;font-weight:600">
+
+            ${a.name} —
+            ${isOut ? 'Producto agotado' : isLow ? 'Stock bajo' : 'Stock alto'}
+
+          </div>
+
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">
+
+            ${a.qty} unidades.
+
+            ${isOut
+              ? 'Debes reabastecer inmediatamente'
+              : isLow
+                ? 'Límite mínimo: ' + a.min + ' unidades'
+                : 'Considera reducir compras'}
+
+          </div>
+
+        </div>
+
+        <span class="badge ${isOut ? 'b-red' : isLow ? 'b-amb' : 'b-blu'}">
+
+          ${isOut ? 'Agotado' : isLow ? 'Urgente' : 'Revisar'}
+
+        </span>
+
+      </div>
+
+    `;
+
+  }).join('');
+
 }
+
+// GUARDAR LIMITE
+function guardarLimite(){
+
+  var prod =
+    document.getElementById('alert-prod-sel').value;
+
+  var min =
+    parseInt(document.getElementById('alert-min-val').value) || 0;
+
+  if(!prod){
+
+    toast('Selecciona un producto','error');
+
+    return;
+
+  }
+
+  if(min <= 0){
+
+    toast('El límite mínimo debe ser mayor a 0','error');
+
+    return;
+
+  }
+
+  PRODUCTS[prod].min = min;
+
+  saveProducts();
+
+  renderAlerts();
+
+  renderProds();
+
+  setVal('alert-min-val','');
+
+  toast(
+    'Límite configurado para ' +
+    prod +
+    ': ' +
+    min +
+    ' unidades',
+    'success'
+  );
+
+}
+
+// IR AL PRODUCTO
 function goToProduct(productName){
 
-  localStorage.setItem('selectedProduct', productName);
+  localStorage.setItem(
+    'selectedProduct',
+    productName
+  );
 
-  window.location.href = 'products.html';
+  window.location.href = 'inventory.html';
+
+}
+
+// CARGAR ALERTAS AL ABRIR
+window.addEventListener('DOMContentLoaded', function(){
+
+  renderAlerts();
+
+});
+if(window.location.pathname.includes('alerts.html')){
+
+  var badge = document.getElementById('alert-badge');
+
+  if(badge){
+
+    badge.style.display = 'none';
+
+  }
 
 }
