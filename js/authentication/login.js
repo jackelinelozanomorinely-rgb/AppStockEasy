@@ -16,19 +16,49 @@ function doLogin(){
     ok=false;
   }
   if(!ok) return;
-  var u = USERS.find(function(x){ return x.email===e && x.pass===p; });
-  if(!u){
+
+    // ─── VERIFICAR BLOQUEO POR INTENTOS FALLIDOS ───
+    var attemptKey = 'loginAttempts_' + e;
+    var attempts = parseInt(localStorage.getItem(attemptKey) || '0');
+  
+    if(attempts >= 4){
     document.getElementById('l-pass').classList.add('err');
-    document.getElementById('el-pass').textContent='Correo o contrasena incorrectos';
+      document.getElementById('el-pass').textContent='❌ Cuenta bloqueada. Demasiados intentos fallidos. Intenta más tarde.';
     document.getElementById('el-pass').classList.add('show');
     return;
   }
+
+    // ─── BUSCAR USUARIO ───
+    var u = USERS.find(function(x){ return x.email===e && x.pass===p; });
+  
+    if(!u){
+      // ─── CREDENCIALES INCORRECTAS: INCREMENTAR INTENTOS ───
+      attempts++;
+      localStorage.setItem(attemptKey, attempts);
+    
+      document.getElementById('l-pass').classList.add('err');
+      if(attempts < 4){
+        document.getElementById('el-pass').textContent='Correo o contraseña incorrectos. Intentos restantes: ' + (4 - attempts);
+      } else {
+        document.getElementById('el-pass').textContent='❌ Cuenta bloqueada por intentos fallidos.';
+      }
+      document.getElementById('el-pass').classList.add('show');
+      return;
+    }
   if(!u.active){
+      // ─── CUENTA DESACTIVADA: INCREMENTAR INTENTOS ───
+      attempts++;
+      localStorage.setItem(attemptKey, attempts);
+    
     document.getElementById('l-pass').classList.add('err');
     document.getElementById('el-pass').textContent='Esta cuenta ha sido desactivada por el administrador';
     document.getElementById('el-pass').classList.add('show');
     return;
   }
+    
+    // ─── LOGIN EXITOSO: RESETEAR INTENTOS Y GUARDAR SESIÓN ───
+  localStorage.removeItem(attemptKey);
+    
   CU = u;
   saveSession(CU);
   loadUserProducts(CU.id); // Carga el inventario exclusivo de este usuario

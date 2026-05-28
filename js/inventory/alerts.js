@@ -3,7 +3,36 @@ function renderAlerts(){
   var alerts=[];
   Object.keys(PRODUCTS).forEach(function(name){
     var p=PRODUCTS[name];
-    if(p.qty<=p.min) alerts.push({name:name,qty:p.qty,min:p.min,type:'bajo'});
+    if(p.qty === 0){
+
+  alerts.push({
+    name:name,
+    qty:p.qty,
+    min:p.min,
+    type:'agotado'
+  });
+
+}
+else if(p.qty <= p.min){
+
+  alerts.push({
+    name:name,
+    qty:p.qty,
+    min:p.min,
+    type:'bajo'
+  });
+
+}
+else if(p.qty > p.min * 5){
+
+  alerts.push({
+    name:name,
+    qty:p.qty,
+    min:p.min,
+    type:'alto'
+  });
+
+}
     else if(p.qty>p.min*5) alerts.push({name:name,qty:p.qty,min:p.min,type:'alto'});
   });
   var badgeEl=document.getElementById('alert-badge');
@@ -14,8 +43,12 @@ function renderAlerts(){
     return;
   }
   container.innerHTML=alerts.map(function(a){
-    var isLow=a.type==='bajo';
-    return '<div class="alert-card"><div class="alert-ico '+(isLow?'ico-red':'ico-amb')+'">'
+    var isLow = a.type === 'bajo';
+    var isOut = a.type === 'agotado';
+    return '<div class="alert-card" onclick="goToProduct(\''+a.name+'\')" style="cursor:pointer">' +
+'<div class="alert-ico ' +(isOut ? 'ico-red' : isLow ? 'ico-amb' : 'ico-amb') +'">' +'<svg viewBox="0 0 24 24" fill="currentColor">' +
+'<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>' +'</svg></div>' +'<div style="flex:1">' +'<div style="font-size:13px;font-weight:600">' +a.name +' — ' +(isOut ? 'Producto agotado' : isLow ? 'Stock bajo' : 'Stock alto') +'</div>' +'<div style="font-size:11px;color:var(--muted);margin-top:2px">' +a.qty +' unidades. ' +(isOut ? 'Debes reabastecer inmediatamente' : isLow ? 'Límite mínimo: ' + a.min + ' unidades' : 'Considera reducir compras') +
+'</div></div>' +'<span class="badge ' +(isOut ? 'b-red' : isLow ? 'b-amb' : 'b-blu') +'">' +(isOut ? 'Agotado' : isLow ? 'Urgente': 'Revisar') +'</span></div>';
       +'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>'
       +'<div style="flex:1"><div style="font-size:13px;font-weight:600">'+a.name+' &mdash; Stock '+(isLow?'bajo':'alto')+'</div>'
       +'<div style="font-size:11px;color:var(--muted);margin-top:2px">'+a.qty+' unidades. '+(isLow?'Limite minimo: '+a.min+' unidades':'Considera reducir compras')+'</div></div>'
@@ -30,4 +63,11 @@ function guardarLimite(){
   PRODUCTS[prod].min=min; saveProducts(); renderAlerts(); renderProds();
   setVal('alert-min-val','');
   toast('Limite configurado para '+prod+': '+min+' unidades','success');
+}
+function goToProduct(productName){
+
+  localStorage.setItem('selectedProduct', productName);
+
+  window.location.href = 'products.html';
+
 }

@@ -1,43 +1,251 @@
-function doRegister(){
-  var nm  = document.getElementById('r-name').value.trim();
-  var em  = document.getElementById('r-email').value.trim();
-  var ps  = document.getElementById('r-pass').value;
-  var ps2 = document.getElementById('r-pass2').value;
-  var bz  = document.getElementById('r-biz').value.trim();
-  var tel = document.getElementById('r-tel').value.trim();
+// ======================================
+// REGISTER.JS - StockEasy
+// ======================================
 
-  [['r-name','er-name'],['r-email','er-email'],['r-pass','er-pass'],
-   ['r-pass2','er-pass2'],['r-biz','er-biz']].forEach(function(pair){
-    document.getElementById(pair[0]).classList.remove('err');
-    document.getElementById(pair[1]).classList.remove('show');
-  });
+// ======================================
+// REGISTRO
+// ======================================
 
-  var ok = true;
-  if(!nm){ document.getElementById('r-name').classList.add('err'); document.getElementById('er-name').classList.add('show'); ok=false; }
-  if(!em||!em.includes('@')){
-    document.getElementById('r-email').classList.add('err');
-    document.getElementById('er-email').textContent='Correo no valido';
-    document.getElementById('er-email').classList.add('show'); ok=false;
-  } else if(USERS.find(function(u){ return u.email===em; })){
-    document.getElementById('r-email').classList.add('err');
-    document.getElementById('er-email').textContent='Este correo ya esta registrado';
-    document.getElementById('er-email').classList.add('show'); ok=false;
-  }
-  if(ps.length<6){ document.getElementById('r-pass').classList.add('err'); document.getElementById('er-pass').classList.add('show'); ok=false; }
-  if(ps!==ps2){ document.getElementById('r-pass2').classList.add('err'); document.getElementById('er-pass2').classList.add('show'); ok=false; }
-  if(!bz){ document.getElementById('r-biz').classList.add('err'); document.getElementById('er-biz').classList.add('show'); ok=false; }
-  if(!ok) return;
+function register() {
 
-  var newUser = {id:Date.now(), email:em, pass:ps, name:nm, biz:bz, tel:tel, active:true};
-  USERS.push(newUser);
-  saveUsers();
+    clearMessages();
 
-  try { localStorage.setItem('stockeasy_products_'+newUser.id, JSON.stringify({})); }
-  catch(e){}
+    // Obtener datos
+    const name =
+        document.getElementById("name")
+        .value
+        .trim();
 
-  document.getElementById('r-ok').classList.add('show');
-  setTimeout(function(){
-    document.getElementById('r-ok').classList.remove('show');
-    window.location.href = 'login.html';
-  }, 1800);
+    const business =
+        document.getElementById("business")
+        .value
+        .trim();
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value
+        .trim();
+
+    const confirmPassword =
+        document.getElementById("confirm-password")
+        .value
+        .trim();
+
+    // Validación
+    let valid = true;
+
+    // Nombre
+    if (name.length < 3) {
+
+        showError("name-error");
+
+        valid = false;
+    }
+
+    // Negocio
+    if (business.length < 3) {
+
+        showError("business-error");
+
+        valid = false;
+    }
+
+    // Email
+    if (!validateEmail(email)) {
+
+        showError("email-error");
+
+        valid = false;
+    }
+
+    // Password
+    if (password.length < 6) {
+
+        showError("password-error");
+
+        valid = false;
+    }
+
+    // Confirmar password
+    if (password !== confirmPassword) {
+
+        showError("confirm-error");
+
+        valid = false;
+    }
+
+    if (!valid) return;
+
+    // Obtener usuarios
+    const users =
+        JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
+
+    // Verificar si ya existe
+    const exists = users.find(
+        user => user.email === email
+    );
+
+    if (exists) {
+
+        alert(
+            "Este correo ya está registrado"
+        );
+
+        return;
+    }
+
+    // Crear usuario
+    const newUser = {
+
+        id: Date.now(),
+
+        name: name,
+
+        business: business,
+
+        email: email,
+
+        password: password,
+
+        role: "emprendedor",
+
+        createdAt:
+            new Date().toLocaleDateString()
+    };
+
+    // Guardar
+    users.push(newUser);
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+    // Mensaje éxito
+    showSuccess();
+
+    // Limpiar formulario
+    clearForm();
+
+    // Redireccionar
+    setTimeout(() => {
+
+        window.location.href =
+            "login.html";
+
+    }, 1800);
 }
+
+// ======================================
+// VALIDAR EMAIL
+// ======================================
+
+function validateEmail(email) {
+
+    const regex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return regex.test(email);
+}
+
+// ======================================
+// MOSTRAR ERROR
+// ======================================
+
+function showError(id) {
+
+    document.getElementById(id)
+        .style.display = "block";
+}
+
+// ======================================
+// LIMPIAR MENSAJES
+// ======================================
+
+function clearMessages() {
+
+    document
+        .querySelectorAll(".error-message")
+        .forEach(error => {
+
+            error.style.display = "none";
+        });
+
+    document.getElementById(
+        "success-message"
+    ).style.display = "none";
+}
+
+// ======================================
+// MOSTRAR ÉXITO
+// ======================================
+
+function showSuccess() {
+
+    document.getElementById(
+        "success-message"
+    ).style.display = "block";
+}
+
+// ======================================
+// LIMPIAR FORM
+// ======================================
+
+function clearForm() {
+
+    document.getElementById("name")
+        .value = "";
+
+    document.getElementById("business")
+        .value = "";
+
+    document.getElementById("email")
+        .value = "";
+
+    document.getElementById("password")
+        .value = "";
+
+    document.getElementById("confirm-password")
+        .value = "";
+}
+
+// ======================================
+// MOSTRAR / OCULTAR PASSWORD
+// ======================================
+
+function togglePassword(inputId) {
+
+    const input =
+        document.getElementById(inputId);
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+    } else {
+
+        input.type = "password";
+    }
+}
+
+// ======================================
+// ENTER PARA REGISTRAR
+// ======================================
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            register();
+        }
+    }
+);

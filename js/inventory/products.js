@@ -4,7 +4,7 @@ function renderProds(){
   setText('dash-total', names.length);
 
   if(names.length===0){
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--muted);font-size:13px">No hay productos aun. Haz clic en "Agregar producto" para comenzar.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--muted);font-size:13px">No hay productos aún.</td></tr>';
     var sel=document.getElementById('alert-prod-sel'); if(sel) sel.innerHTML='<option value="">Sin productos</option>';
     updateSysCounts(); return;
   }
@@ -66,9 +66,43 @@ function saveProd(){
   else { document.getElementById('mp-price').classList.remove('err'); document.getElementById('mp-price-err').classList.remove('show'); }
   if(!ok) return;
   if(editing && editing!==nm && PRODUCTS[editing]) delete PRODUCTS[editing];
-  var existHist=(editing && PRODUCTS[nm] && editing===nm) ? PRODUCTS[nm].hist : [{t:'Entrada',q:qty,d:new Date().toISOString().split('T')[0],n:'Stock inicial'}];
-  PRODUCTS[nm]={desc:desc,qty:qty,price:price,min:min,hist:existHist};
-  saveProducts(); renderProds(); renderAlerts(); closeModal('mo-product');
+  var existHist =
+
+(editing && PRODUCTS[nm] && editing===nm)
+
+? PRODUCTS[nm].hist
+
+: [{
+    t:'Entrada',
+    q:qty,
+    d:new Date().toISOString().split('T')[0],
+    h:new Date().toLocaleTimeString('es-CO',{
+      hour:'2-digit',
+      minute:'2-digit',
+      second:'2-digit'
+    }),
+
+    n:'Stock inicial'
+
+}];
+  PRODUCTS[nm]={
+  desc:desc,
+  qty:qty,
+  price:price,
+  min:min,
+  fechaCreacion:
+    new Date().toISOString().split('T')[0],
+
+  horaCreacion:
+    new Date().toLocaleTimeString('es-CO',{
+      hour:'2-digit',
+      minute:'2-digit',
+      second:'2-digit'
+    }),
+
+  hist:existHist
+};
+  saveProducts(); renderProds(); highlightSelectedProduct();renderAlerts(); closeModal('mo-product');
   toast(editing?'Producto actualizado correctamente':'Producto creado exitosamente','success');
 }
 
@@ -94,7 +128,41 @@ function openDetail(name){
   if(hb) hb.innerHTML=p.hist.map(function(h){
     return '<tr><td><span class="badge '+(h.t==='Entrada'?'b-grn':'b-red')+'">'+h.t+'</span></td>'
       +'<td class="'+(h.t==='Entrada'?'mov-in':'mov-out')+'">'+(h.t==='Entrada'?'+':'-')+h.q+'</td>'
-      +'<td>'+h.d+'</td><td>'+h.n+'</td></tr>';
+      +'<td>'+h.d+'</td>'
++'<td>'+(h.h || '--:--')+'</td>'
++'<td>'+h.n+'</td></tr>';
   }).join('');
   gp('pg-detail',null);
+}
+function highlightSelectedProduct(){
+
+  var selected = localStorage.getItem('selectedProduct');
+
+  if(!selected) return;
+
+  setTimeout(function(){
+
+    var rows = document.querySelectorAll('.product-row');
+
+    rows.forEach(function(row){
+
+      if(row.dataset.name === selected){
+
+        row.style.border = '2px solid #ef4444';
+
+        row.style.background = '#fef2f2';
+
+        row.scrollIntoView({
+          behavior:'smooth',
+          block:'center'
+        });
+
+      }
+
+    });
+
+    localStorage.removeItem('selectedProduct');
+
+  },300);
+
 }

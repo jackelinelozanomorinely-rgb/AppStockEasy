@@ -1,0 +1,66 @@
+@import url('auth.css');
+@import url('dashboard.css');
+@import url('components.css');
+@import url('responsive.css');
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+    --b1:#2A4B8C;
+    --b2:#3F52BF;
+    --b3:#1e3a70;
+
+    --g1:#207344;
+    --g2:#24BF5B;
+
+    --text:#1a1a2e;
+    --muted:#6b7280;
+
+    --border:#e5e7eb;
+
+    --bg:#f4f6fb;
+
+    --red:#e24b4a;
+    --amber:#e07b00;
+
+    --sw:232px;
+    --hh:54px;
+}
+
+/* =========================
+   BODY
+========================= */
+
+html,
+body{
+
+    font-family:'Plus Jakarta Sans',sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-size:14px;
+
+    height:100%;
+}
+
+.app{
+
+    width:100%;
+
+    min-height:100vh;
+}

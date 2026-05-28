@@ -1,0 +1,245 @@
+/* =========================
+   AUTH LAYOUT
+========================= */
+
+.auth-bg{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    background:
+    linear-gradient(
+        145deg,
+        #0d1f3c 0%,
+        #1e3a70 40%,
+        #0a3d1e 100%
+    );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.auth-split{
+
+    display:flex;
+
+    width:100%;
+}
+
+.auth-left{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    padding:40px;
+
+    gap:14px;
+}
+
+.auth-right{
+
+    width:430px;
+
+    background:white;
+
+    padding:36px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+
+    width:100px;
+
+    height:100px;
+
+    object-fit:contain;
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.auth-title{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+}
+
+.auth-sub{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    margin-bottom:20px;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.fld{
+
+    margin-bottom:14px;
+}
+
+.fld label{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+}
+
+.fld input{
+
+    width:100%;
+
+    padding:11px 13px;
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    background:white;
+
+    font-size:13px;
+}
+
+.fld input:focus{
+
+    outline:none;
+
+    border-color:var(--b2);
+
+    box-shadow:
+    0 0 0 4px rgba(63,82,191,.12);
+}
+
+/* =========================
+   PASSWORD
+========================= */
+
+.pwd-wrap{
+
+    position:relative;
+}
+
+.pwd-wrap input{
+
+    padding-right:40px;
+}
+
+.pwd-eye{
+
+    position:absolute;
+
+    right:12px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-p{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--b1),
+        var(--b2)
+    );
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.btn-p:hover{
+
+    transform:translateY(-1px);
+
+    opacity:.92;
+}
+
+/* =========================
+   MESSAGES
+========================= */
+
+.err-msg{
+
+    font-size:11px;
+
+    color:var(--red);
+
+    margin-top:4px;
+
+    display:none;
+}
+
+.ok-msg{
+
+    background:#e8f7ed;
+
+    color:var(--g1);
+
+    padding:10px;
+
+    border-radius:8px;
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    display:none;
+}

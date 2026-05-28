@@ -20,11 +20,11 @@
       </div>
       <div class="sb-nav">
         <div class="sb-sec">Administración del sistema</div>
-        <div class="sb-item active" onclick="gap('ag-users',this)">
+        <div class="sb-item active" onclick="gap('ag-users',this,'Gestión de Usuarios')">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           Gestión de usuarios
         </div>
-        <div class="sb-item" onclick="gap('ag-system',this)">
+        <div class="sb-item" onclick="gap('ag-system',this,'Control del Sistema')">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
           Control del sistema
         </div>
@@ -95,20 +95,75 @@
         </div>
       </div>
 
-    <div class="system-grid">
+   <!-- CONTROL SISTEMA -->
+<div class="page" id="ag-system">
 
-  <div class="sc">
-    <!-- Seguridad del sistema -->
-    <div class="sc-title">Seguridad del sistema</div>
-    Estado: <b style="color:var(--g1)">Activo</b><br>
-    Versión: <b>StockEasy version 1.0</b><br>
-    Usuarios activos: <b id="sys-active">1</b><br>
-    Respaldo automático: <b style="color:var(--g1)">Habilitado</b><br><br>
+  <div class="system-grid">
 
-    <button onclick="respaldarDatos()" class="btn-backup">
-      Respaldar datos ahora
-    </button>
+    <!-- Seguridad -->
+    <div class="sc">
+
+      <div class="sc-title">
+        Seguridad del sistema
+      </div>
+
+      Estado:
+      <b style="color:var(--g1)">Activo</b><br>
+
+      Versión:
+      <b>StockEasy version 1.0</b><br>
+
+      Usuarios activos:
+      <b id="sys-active">1</b><br>
+
+      Respaldo automático:
+      <b style="color:var(--g1)">Habilitado</b><br><br>
+
+      <button onclick="respaldarDatos()" class="btn-backup">
+        Respaldar datos ahora
+      </button>
+
+    </div>
+
+    <!-- REGISTROS -->
+    <div class="sc">
+
+      <div class="sc-title">
+        Registros del sistema
+      </div>
+
+      <div style="font-size:12px;color:#555;line-height:2.2">
+
+        Total usuarios:
+        <b id="sys-total-users">1</b><br>
+
+        Productos registrados:
+        <b id="sys-prods">0</b><br>
+
+        Entradas registradas:
+        <b>—</b><br>
+
+        Salidas registradas:
+        <b>—</b>
+
+      </div>
+
+      <br>
+
+      <!-- BOTON EXCEL -->
+      <button
+        onclick="downloadAllUsersExcel()"
+        class="btn-excel-system">
+
+        📥 Descargar Excel Emprendedores
+
+      </button>
+
+    </div>
+
   </div>
+
+</div>
 
   <div class="sc">
     <!-- Registros del sistema -->
@@ -128,8 +183,10 @@
 
     <!-- Conexión JS -->
     <script src="../js/config/main.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <script src="../js/administration/admin.js"></script>
     <script src="../js/toast/toast.js"></script>
-</body>
+
+  </body>
 </html>
         

@@ -22,10 +22,10 @@
         </div>
         <div class="sb-sec">Gestión</div>
         <div class="sb-item" onclick="window.location.href='products.html'">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.58 15.91.48 13.33.54 11.36.07 9.5 1.99 9.5 4.5H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5-2c.83 0 1.5.67 1.5 1.5S15.83 7 15 7s-1.5-.67-1.5-1.5S14.17 4 15 4zm2 16H8V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v11z"/></svg>Productos
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.58 15.91.48 13.33.54 11.36.07 9.5 1.99 9.5 4.5H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5-2c.83 0 1.5.67 1.5 1.5S15.83 7 15 7s-1.5-.67-1.5-1.5S14.17 4 15 4zm2 16H8V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v11z"/></svg>Inventario
         </div>
         <div class="sb-item" onclick="window.location.href='inventory.html'">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Inventario
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Registros
         </div>
         <div class="sb-item" onclick="window.location.href='alerts.html'">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>Alertas
@@ -53,14 +53,10 @@
     </div>
     <div class="main">
       <div class="topbar">
-        <div class="topbar-title" id="app-ttl">Dashboard</div>
-        <div id="topbar-acts">
-          <button class="btn-add" onclick="openProdModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-            Agregar producto
-          </button>
-        </div>
-      </div>
+  <div class="topbar-title" id="app-ttl">Dashboard</div>
+  <div id="topbar-acts">
+  </div>
+</div>
 
       <!-- DASHBOARD -->
       <div class="page active" id="pg-dash">
@@ -106,33 +102,7 @@
         </div>
       </div>
 
-      <div class="modal-overlay" id="mo-product">
-        <div class="modal">
-          <div class="modal-title">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--b1)"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.58 15.91.48 13.33.54 11.36.07 9.5 1.99 9.5 4.5H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5-2c.83 0 1.5.67 1.5 1.5S15.83 7 15 7s-1.5-.67-1.5-1.5S14.17 4 15 4zm2 16H8V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v1c0 .55.45 1 1 1s1-.45 1-1V9h2v11z"/></svg>
-            <span id="mo-prod-ttl">Agregar producto</span>
-          </div>
-          <div class="fl"><label>Nombre del producto *</label><input type="text" id="mp-name" placeholder="Nombre del producto"><div class="err-msg" id="mp-name-err">Campo obligatorio</div></div>
-          <div class="fl"><label>Descripción *</label><input type="text" id="mp-desc" placeholder="Descripción del producto"><div class="err-msg" id="mp-desc-err">Campo obligatorio</div></div>
-          <div class="fg2">
-            <div class="fl"><label>Cantidad inicial *</label>
-              <div class="qty-wrap">
-                <button class="qty-btn" type="button" onclick="changeQty('mp-qty',-1)">−</button>
-                <input type="number" class="qty-input" id="mp-qty" value="1" min="0">
-                <button class="qty-btn" type="button" onclick="changeQty('mp-qty',1)">+</button>
-              </div>
-              <div class="err-msg" id="mp-qty-err">Cantidad inválida</div>
-            </div>
-            <div class="fl"><label>Precio *</label><input type="text" id="mp-price" placeholder="Ej: 15000"><div class="err-msg" id="mp-price-err">Precio inválido</div></div>
-          </div>
-          <div class="fl"><label>Límite mínimo de stock</label><input type="number" id="mp-min" placeholder="Ej: 10" min="1" value="10"></div>
-          <input type="hidden" id="mp-editing">
-          <div class="modal-actions">
-            <button class="m-cancel" onclick="closeModal('mo-product')">Cancelar</button>
-            <button class="m-save" onclick="saveProd()">Guardar producto</button>
-          </div>
-        </div>
-      </div>
+
 
       <div class="modal-overlay confirm-modal" id="mo-confirm">
         <div class="modal">

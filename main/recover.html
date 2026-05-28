@@ -21,10 +21,37 @@
       <div class="auth-right">
         <div class="auth-form-area">
           <div class="auth-title">Recuperar contraseña</div>
-          <div class="auth-sub">Ingresa tu correo registrado y te enviaremos un enlace de recuperación</div>
-          <div class="fld"><label>Correo electrónico</label><input type="email" id="rec-email" placeholder="Ingresa tu correo registrado"><div class="err-msg" id="erec">Correo no encontrado en el sistema</div></div>
-          <button class="btn-p" onclick="doRecover()">Enviar enlace de recuperación</button>
-          <div class="ok-msg" id="rec-ok">Enlace enviado correctamente. Revisa tu bandeja de entrada.</div>
+          <div class="auth-sub">Elige cómo deseas recuperar tu contraseña</div>
+          
+          <!-- Tabs para elegir método de recuperación -->
+          <div style="display:flex;gap:10px;margin-bottom:20px;border-bottom:.5px solid #e0e0e0">
+            <button class="tab-btn" style="flex:1;padding:12px;border:none;background:none;cursor:pointer;font-weight:600;border-bottom:2px solid var(--p1);color:var(--p1)" onclick="switchRecoveryTab('email')">Por correo</button>
+            <button class="tab-btn" style="flex:1;padding:12px;border:none;background:none;cursor:pointer;font-weight:600;border-bottom:2px solid transparent;color:#888" onclick="switchRecoveryTab('phone')">Por teléfono</button>
+          </div>
+          
+          <!-- Opción 1: Por correo -->
+          <div id="recover-email-form" style="display:block">
+            <div class="fld"><label>Correo electrónico</label><input type="email" id="rec-email" placeholder="Ingresa tu correo registrado"><div class="err-msg" id="erec">Correo no encontrado en el sistema</div></div>
+            <button class="btn-p" onclick="doRecoverByEmail()">Recuperar por correo</button>
+          </div>
+          
+          <!-- Opción 2: Por teléfono -->
+          <div id="recover-phone-form" style="display:none">
+            <div class="fld"><label>Número telefónico</label><input type="tel" id="rec-phone" placeholder="Ingresa tu teléfono registrado"><div class="err-msg" id="erph">Teléfono no encontrado en el sistema</div></div>
+            <button class="btn-p" onclick="doRecoverByPhone()">Recuperar por teléfono</button>
+          </div>
+          
+          <!-- Mostrar contraseña encontrada -->
+          <div id="recover-result" style="display:none;margin-top:20px;padding:15px;background:#f0f9ff;border:.5px solid #0ea5e9;border-radius:8px">
+            <div style="font-size:13px;color:#0369a1;font-weight:600;margin-bottom:8px">✓ Contraseña encontrada</div>
+            <div style="font-size:14px;font-family:'DM Mono',monospace;padding:10px;background:white;border:.5px solid #0ea5e9;border-radius:6px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span id="recover-password-display" style="letter-spacing:1px">••••••</span>
+              <button type="button" onclick="copyRecoveredPassword(this)" style="border:none;background:#0ea5e9;color:white;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600">Copiar</button>
+            </div>
+            <div style="font-size:11px;color:#0369a1">Tu contraseña ha sido recuperada. Ya puedes iniciar sesión.</div>
+          </div>
+          
+          <div class="ok-msg" id="rec-ok">Contraseña recuperada. Revisa el campo anterior.</div>
           <button class="lnk" onclick="window.location.href='login.html'">Volver al inicio de sesión</button>
         </div>
         <div class="auth-bottom"></div>

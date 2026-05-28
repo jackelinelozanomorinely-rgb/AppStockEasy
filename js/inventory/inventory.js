@@ -3,7 +3,50 @@
   var i1=document.getElementById('inv-in-date'); if(i1) i1.value=today;
   var i2=document.getElementById('inv-out-date'); if(i2) i2.value=today;
 })();
+function updateRealtimeClock(){
 
+  const now = new Date();
+
+  const hora =
+    now.toLocaleTimeString('es-CO',{
+
+      hour:'2-digit',
+
+      minute:'2-digit',
+
+      second:'2-digit'
+
+    });
+
+
+
+  const inTime =
+    document.getElementById('inv-in-time');
+
+  const outTime =
+    document.getElementById('inv-out-time');
+
+
+
+  if(inTime){
+
+    inTime.value = hora;
+  }
+
+
+
+  if(outTime){
+
+    outTime.value = hora;
+  }
+}
+
+
+
+// actualizar cada segundo
+setInterval(updateRealtimeClock,1000);
+
+updateRealtimeClock();
 function invTab(t,el){
   document.querySelectorAll('.tabs .tab').forEach(function(x){ x.classList.remove('active'); });
   if(el) el.classList.add('active');
@@ -29,14 +72,45 @@ function showProdSug(q,sugId){
 
 function changeQty(id,d){ var inp=document.getElementById(id); if(!inp) return; inp.value=Math.max(0,(parseInt(inp.value)||0)+d); }
 
+function formatTwoDigits(value){ return (value < 10 ? '0' : '') + value; }
+function getCurrentTimeShort(){ var now=new Date(); return formatTwoDigits(now.getHours()) + ':' + formatTwoDigits(now.getMinutes()) + ':' + formatTwoDigits(now.getSeconds()); }
+function updateCurrentTime(){
+
+  const now = new Date();
+
+  const time =
+    now.toLocaleTimeString('es-CO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+  const inTime =
+    document.getElementById('inv-in-time');
+
+  const outTime =
+    document.getElementById('inv-out-time');
+
+  if(inTime){
+    inTime.value = time;
+  }
+
+  if(outTime){
+    outTime.value = time;
+  }
+}
 function registrarEntrada(){
   var prod=document.getElementById('inv-in-prod').value.trim(), qty=parseInt(document.getElementById('inv-in-qty').value)||0;
   var date=document.getElementById('inv-in-date').value, nota=document.getElementById('inv-in-nota').value.trim()||'Sin nota';
   if(!prod||!PRODUCTS[prod]){ toast('Selecciona un producto valido de la lista','error'); return; }
   if(qty<=0){ toast('La cantidad debe ser mayor a 0','error'); return; }
   if(!date){ toast('Ingresa la fecha de entrada','error'); return; }
-  PRODUCTS[prod].qty+=qty; PRODUCTS[prod].hist.unshift({t:'Entrada',q:qty,d:date,n:nota});
-  saveProducts(); addHistRow(prod,'Entrada','+'+qty,date,nota);
+  var time =
+  document.getElementById('inv-in-time').value;
+  var user = CU && CU.name ? CU.name : '';
+  PRODUCTS[prod].qty += qty;
+  PRODUCTS[prod].hist.unshift({t:'Entrada',q:qty,d:date,h:time,n:nota,u:user});
+  saveProducts(); addHistRow(prod,'Entrada','+'+qty,date,time,nota,user);
   setVal('inv-in-prod',''); setVal('inv-in-qty',1); setVal('inv-in-nota','');
   var si=document.getElementById('sug-in'); if(si) si.style.display='none';
   renderProds(); renderAlerts();
@@ -50,18 +124,27 @@ function registrarSalida(){
   if(qty<=0){ toast('La cantidad debe ser mayor a 0','error'); return; }
   if(qty>PRODUCTS[prod].qty){ toast('Stock insuficiente. Solo hay '+PRODUCTS[prod].qty+' unidades disponibles','error'); return; }
   if(!date){ toast('Ingresa la fecha de salida','error'); return; }
-  PRODUCTS[prod].qty-=qty; PRODUCTS[prod].hist.unshift({t:'Salida',q:qty,d:date,n:nota});
-  saveProducts(); addHistRow(prod,'Salida','-'+qty,date,nota);
+  var time =
+  document.getElementById('inv-out-time').value;
+  var user = CU && CU.name ? CU.name : '';
+  PRODUCTS[prod].qty -= qty;
+  PRODUCTS[prod].hist.unshift({t:'Salida',q:qty,d:date,h:time,n:nota,u:user});
+  saveProducts(); addHistRow(prod,'Salida','-'+qty,date,time,nota,user);
   setVal('inv-out-prod',''); setVal('inv-out-qty',1); setVal('inv-out-nota','');
   var so=document.getElementById('sug-out'); if(so) so.style.display='none';
   renderProds(); renderAlerts();
   toast('Salida registrada. Stock actualizado a '+PRODUCTS[prod].qty+' unidades.','success');
 }
 
-function addHistRow(prod,tipo,qty,date,nota){
+function addHistRow(prod,tipo,qty,date,time,nota,user){
   var tbody=document.getElementById('hist-tbody'); if(!tbody) return;
   var tr=document.createElement('tr');
-  tr.innerHTML='<td>'+prod+'</td><td><span class="badge '+(tipo==='Entrada'?'b-grn':'b-red')+'">'+tipo+'</span></td>'
-    +'<td class="'+(tipo==='Entrada'?'mov-in':'mov-out')+'">'+qty+'</td><td>'+date+'</td><td>'+nota+'</td>';
+  var noteHtml = nota || '—';
+  if(user){ noteHtml += '<div style="font-size:11px;color:var(--muted);margin-top:4px">' + user + '</div>'; }
+  tr.innerHTML = '<td>'+prod+'</td><td><span class="badge '+(tipo==='Entrada'?'b-grn':'b-red')+'">'+tipo+'</span></td>'
+    +'<td class="'+(tipo==='Entrada'?'mov-in':'mov-out')+'">'+qty+'</td><td>'+date+'</td><td>'+time+'</td><td>'+noteHtml+'</td>';
   tbody.prepend(tr);
 }
+updateCurrentTime();
+
+setInterval(updateCurrentTime, 1000);
